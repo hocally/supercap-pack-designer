@@ -1,6 +1,7 @@
 import unittest
 from pack_builder.capacitor import Capacitor
 
+
 class TestCapacitor(unittest.TestCase):
     def test_capacitor_energy(self):
         """
@@ -14,5 +15,6 @@ class TestCapacitor(unittest.TestCase):
         energy = test_capacitor.get_max_energy()
         self.assertEqual(energy, 2.0)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
