@@ -29,4 +29,4 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pytest
+        coverage run --branch --source=capacitor_finder,pack_builder,pack_optimizer -m pytest -v tests && coverage report -m
