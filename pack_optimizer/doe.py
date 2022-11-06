@@ -1,17 +1,24 @@
-from pack_builder.capacitor import Capacitor
-from pack_builder.pack import Pack
+"""Tools for DOE analysis"""
+
 from enum import Enum
 from typing import NamedTuple
-
 import numpy as np
+from pack_builder.capacitor import Capacitor
+from pack_builder.pack import Pack
 
 
 class Sweep:
+    """Single dimension sweeper"""
+
     class SweepType(Enum):
+        """Type of sweep"""
+
         VOLTAGE = 0
         ENERGY = 1
 
     class SweepParameters(NamedTuple):
+        """Parameters for sweep"""
+
         points: int
         percentage: float  # Max and min percent
 
@@ -31,6 +38,7 @@ class Sweep:
         self.packs = []
 
     def enumerate_packs(self):
+        """Create packs from sweep parameters"""
         voltage_goals = []
         energy_goals = []
         match self.sweep_type:

@@ -1,23 +1,29 @@
+"""Tool using Digikey API to find capacitors to build packs from"""
 import re
-import os
+import math
 import digikey
 from digikey.v3.productinformation import KeywordSearchRequest
 from pack_builder.capacitor import Capacitor
-import math
 
 
 class QueryTool:
+    """Hits Digikey API and exports capacitor data into normalized model"""
+
     def __init__(self, num_capacitors: int):
         self.num_capacitors = num_capacitors
         self.capacitors_found = self.search_the_information_superhighway()
 
     def only_numerics(self, seq):
+        """Strip out non-numeric characters"""
+
         seq_type = type(seq)
         return seq_type().join(filter(seq_type.isdigit, seq))
 
     def create_cap_object(
         self, capacitor_data_raw, capacitor_price_raw, manufacturer_part_number
     ) -> Capacitor:
+        """Creates capacitor model from API data"""
+
         capacitance = None
         voltage_rating = None
         price = capacitor_price_raw[0]["unit_price"]
@@ -28,10 +34,10 @@ class QueryTool:
                 match parameter["parameter"]:
                     case "Voltage - Rated":
                         voltage_rating = float(
-                            re.sub("[^\d\.]", "", parameter["value"])
+                            re.sub(r"[^\d\.]", "", parameter["value"])
                         )
                     case "Capacitance":
-                        capacitance = float(re.sub("[^\d\.]", "", parameter["value"]))
+                        capacitance = float(re.sub(r"[^\d\.]", "", parameter["value"]))
                         if "m" in parameter["value"]:
                             capacitance /= 1000
                     case "Size / Dimension":
@@ -51,7 +57,7 @@ class QueryTool:
                             circle_area = circle_area[
                                 circle_area.find("(") + 1 : circle_area.find(")")
                             ]
-                            circle_area = float(re.sub("[^\d\.]", "", circle_area))
+                            circle_area = float(re.sub(r"[^\d\.]", "", circle_area))
                             radius = math.sqrt(circle_area / math.pi)
                             side_length = 2 * radius
                             area = side_length**2
@@ -65,6 +71,7 @@ class QueryTool:
         )
 
     def search_the_information_superhighway(self) -> list[Capacitor]:
+        """Hackerman.wav"""
 
         # Search for parts
         search_request = KeywordSearchRequest(
