@@ -65,6 +65,7 @@ class CapacitorFinder:
         )
 
     def search_the_information_superhighway(self) -> list[Capacitor]:
+
         # Search for parts
         search_request = KeywordSearchRequest(
             keywords="capacitor",

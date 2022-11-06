@@ -70,8 +70,7 @@ class Pack:
         ), "Pack must be defined before area is calculated!"
         if self.capacitor.area is not None:
             return self.get_num_capacitors() * self.capacitor.area
-        else:
-            return float("NaN")
+        return float("NaN")
 
     def get_pack_joules_per_dollar(self) -> float:
         return self.get_pack_max_energy() / self.get_pack_price()

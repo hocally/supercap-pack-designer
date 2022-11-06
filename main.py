@@ -1,5 +1,5 @@
 from pack_builder.pack import Pack
-from capcitor_finder.query_tool import CapacitorFinder
+from capacitor_finder.query_tool import CapacitorFinder
 
 
 def watt_hours_to_joules(watt_hours: float) -> float:
