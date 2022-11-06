@@ -48,6 +48,7 @@ class QueryTool:
                             length = float(area[0 : area.find("m")])
                             width_space = area[area.find("m") : -1]
                             width_anchor = re.search(r"\d", width_space)
+                            assert width_anchor is not None
                             width_space = area[width_anchor.start() : -1]
                             width = float(width_space[width_anchor.start() : -1])
                             area = length * width
