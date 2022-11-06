@@ -29,7 +29,7 @@ class QueryTool:
             results = Parallel(n_jobs=9)(
                 delayed(self.process)(bottom, top) for (bottom, top) in ranges
             )
-            assert type(results) is list
+            assert isinstance(results, list)
             results = [item for sublist in results for item in sublist]
         else:
             for (bottom, top) in ranges:
@@ -38,6 +38,7 @@ class QueryTool:
         self.capacitors_found = self.aggregate_results(results)
 
     def process(self, bottom, top):
+        """Parallelized call"""
         (
             fresh_data,
             hits_left,
@@ -186,7 +187,6 @@ class QueryTool:
 
     def aggregate_results(self, caps_raw):
         """Aggregate queries"""
-        caps_raw = caps_raw
         caps = []
         for cap in caps_raw:
             if len(cap["standard_pricing"]) > 0:
