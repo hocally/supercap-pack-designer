@@ -1,6 +1,4 @@
-from pack_builder.capacitor import Capacitor
 from pack_builder.pack import Pack
-from pack_optimizer.doe import Sweep
 from capcitor_finder.query_tool import CapacitorFinder
 
 

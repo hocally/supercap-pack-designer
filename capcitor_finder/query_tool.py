@@ -82,6 +82,8 @@ class CapacitorFinder:
         api_limit = {}
         result = digikey.keyword_search(body=search_request, api_limits=api_limit)
 
+        print(api_limit)
+
         caps_raw = result.to_dict()["products"]
         caps = []
         for cap in caps_raw:
