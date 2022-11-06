@@ -21,7 +21,7 @@ class Pack:
 
     def get_stack_max_energy(self) -> float:
         assert (
-            self.num_series_capacitors is not 0
+            self.num_series_capacitors != 0
         ), "Cannot compute stack energy without stack size defined!"
         series_capacitance = 1 / (
             self.num_series_capacitors * (1 / self.capacitor.capacitance)
@@ -34,7 +34,7 @@ class Pack:
 
     def get_stack_voltage(self) -> float:
         assert (
-            self.num_series_capacitors is not 0
+            self.num_series_capacitors != 0
         ), "Cannot compute stack voltage without stack size defined!"
         return self.num_series_capacitors * self.capacitor.voltage_rating
 
@@ -81,7 +81,7 @@ class Pack:
             self.num_series_capacitors is not None
             and self.num_parallel_stacks is not None
         ), "Pack must be defined before area things can be calculated!"
-        if self.get_pack_area() is not float("NaN") or None:
+        if not math.isnan(self.get_pack_area()):
             return self.get_pack_max_energy() / self.get_pack_area()  # type: ignore
 
     def get_pack_report(self):
