@@ -1,8 +1,10 @@
+"""Sandbox"""
 from pack_builder.pack import Pack
 from capacitor_finder.query_tool import QueryTool
 
 
 def watt_hours_to_joules(watt_hours: float) -> float:
+    """Helper function for quick energy conversion"""
     return watt_hours * 3600
 
 

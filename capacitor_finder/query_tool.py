@@ -23,6 +23,7 @@ class QueryTool:
         self, capacitor_data_raw, capacitor_price_raw, manufacturer_part_number
     ) -> Capacitor:
         """Creates capacitor model from API data"""
+        # pylint: disable=too-many-locals
 
         capacitance = None
         voltage_rating = None
