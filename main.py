@@ -12,7 +12,7 @@ def watt_hours_to_joules(watt_hours: float) -> float:
     return watt_hours * 3600
 
 
-sleuth = QueryTool(50)
+sleuth = QueryTool(50, True)
 capacitors = sleuth.capacitors_found
 packs = []
 for capacitor in capacitors:
@@ -20,7 +20,7 @@ for capacitor in capacitors:
         DESIGN_VOLTAGE,
         DESIGN_ENERGY,
         capacitor,
-        Sweep.SweepParameters(20, 5, Sweep.SweepParameters.SweepType.VOLTAGE),
+        Sweep.SweepParameters(200, 5, Sweep.SweepParameters.SweepType.VOLTAGE),
     )
     sweep.enumerate_packs()
     packs.extend(sweep.packs)

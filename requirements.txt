@@ -13,6 +13,7 @@ idna==3.4
 inflection==0.5.1
 iniconfig==1.1.1
 isort==5.10.1
+joblib==1.2.0
 lazy-object-proxy==1.8.0
 mccabe==0.7.0
 numpy==1.23.4

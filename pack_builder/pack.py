@@ -103,7 +103,9 @@ class Pack:
             str(f"{self.get_stack_voltage():.3f}")
             + " V, "
             + str(f"{self.get_pack_max_energy():.3f}")
-            + " J, $"
+            + " J, "
+            + str(f"{self.get_pack_area():.3f}")
+            + " sq mm, $"
             + str(f"{self.get_pack_price():.3f}")
             + ", "
             + str(f"{self.get_pack_joules_per_dollar():.3f}")
