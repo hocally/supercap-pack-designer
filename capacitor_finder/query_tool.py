@@ -1,7 +1,6 @@
 """Tool using Digikey API to find capacitors to build packs from"""
 import re
 import math
-import os
 import digikey
 import numpy as np
 from digikey.v3.productinformation import KeywordSearchRequest
@@ -74,17 +73,19 @@ class QueryTool:
             capacitance, voltage_rating, price, manufacturer_part_number, 12.0
         )
 
-    def generate_value_list(self, min, max) -> list[dict]:
+    def generate_value_list(self, min_value, max_value) -> list[dict]:
+        """Generates list of allowable capacitances"""
         out = []
-        for i in range(min, max):
+        for i in range(min_value, max_value):
             out.append(
                 {"ParameterId": 2049, "ValueId": str(i)},
             )
         return out
 
-    def generate_voltage_list(self, min, max) -> list[dict]:
+    def generate_voltage_list(self, min_voltage, max_voltage) -> list[dict]:
+        """Generates list of allowable voltages"""
         out = []
-        for i in np.arange(min, max, 0.01):
+        for i in np.arange(min_voltage, max_voltage, 0.01):
             out.append(
                 {"ParameterId": 2079, "ValueId": str(i)},
             )

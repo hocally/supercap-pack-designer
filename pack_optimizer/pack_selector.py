@@ -6,6 +6,8 @@ from pack_builder.pack import Pack
 class PackSelector:
     """Tool for selection optimal pack"""
 
+    # pylint: disable=too-few-public-methods
+
     class FitnessFunction(Enum):
         """Optimization strategy, parameter to be minimized"""
 
