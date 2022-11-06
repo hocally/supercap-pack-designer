@@ -1,8 +1,11 @@
+"""Tests for Capacitor model"""
 import unittest
 from pack_builder.capacitor import Capacitor
 
 
 class TestCapacitor(unittest.TestCase):
+    """Capacitor model tester"""
+
     def test_capacitor_energy(self):
         """
         Ensure that capacitors compute energy correctly

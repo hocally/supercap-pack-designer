@@ -6,7 +6,7 @@ from pack_builder.capacitor import Capacitor
 import math
 
 
-class CapacitorFinder:
+class QueryTool:
     def __init__(self, num_capacitors: int):
         self.num_capacitors = num_capacitors
         self.capacitors_found = self.search_the_information_superhighway()

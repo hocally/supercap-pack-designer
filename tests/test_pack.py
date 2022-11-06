@@ -1,9 +1,13 @@
+"""Tests for Capacitor model"""
+
 import unittest
 from pack_builder.capacitor import Capacitor
 from pack_builder.pack import Pack
 
 
 class TestPack(unittest.TestCase):
+    """Pack model tester"""
+
     def test_pack_complete(self):
         """
         Ensure that pack parameters are computed properly

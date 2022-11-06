@@ -1,4 +1,9 @@
+"""Simple model for a capacitor"""
+
+
 class Capacitor:
+    """A capacitor. Stores information about value, voltage rating, size, and cost"""
+
     def __init__(
         self,
         capacitance: float,
@@ -14,4 +19,5 @@ class Capacitor:
         self.area = area
 
     def get_max_energy(self):
+        """Compute energy stored in capacitor"""
         return 0.5 * self.capacitance * self.voltage_rating**2
