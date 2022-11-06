@@ -1,6 +1,10 @@
 """Sandbox"""
-from pack_builder.pack import Pack
 from capacitor_finder.query_tool import QueryTool
+from pack_optimizer.pack_selector import PackSelector
+from pack_optimizer.doe import Sweep
+
+DESIGN_VOLTAGE = 50
+DESIGN_ENERGY = 6000
 
 
 def watt_hours_to_joules(watt_hours: float) -> float:
@@ -12,7 +16,26 @@ sleuth = QueryTool(50)
 capacitors = sleuth.capacitors_found
 packs = []
 for capacitor in capacitors:
-    packs.append(Pack(50, 5000, capacitor))
+    sweep = Sweep(
+        DESIGN_VOLTAGE,
+        DESIGN_ENERGY,
+        capacitor,
+        Sweep.SweepParameters(20, 5, Sweep.SweepParameters.SweepType.VOLTAGE),
+    )
+    sweep.enumerate_packs()
+    packs.extend(sweep.packs)
 
-for pack in packs:
-    print(pack.get_pack_report())
+#     print(pack.get_pack_report())
+
+
+decider = PackSelector(packs)
+print("Cheapo:")
+print(decider.select_pack(PackSelector.FitnessFunction.PRICE).get_pack_report())
+print("Bang for buck:")
+print(
+    decider.select_pack(PackSelector.FitnessFunction.PRICE_PER_ENERGY).get_pack_report()
+)
+print("Packaging king:")
+print(
+    decider.select_pack(PackSelector.FitnessFunction.AREA_PER_ENERGY).get_pack_report()
+)

@@ -110,5 +110,7 @@ class Pack:
             + " J/$: "
             + str(f"{self.get_pack_joules_per_area():.3f}")
             + " J/sq mm, "
+            + str(f"{self.get_num_capacitors():.3f}")
+            + " caps, "
             + str(self.capacitor.part_number)
         )

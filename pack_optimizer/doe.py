@@ -45,10 +45,10 @@ class Sweep:
         match self.sweep_parameters.sweep_type:
             case self.sweep_parameters.SweepType.VOLTAGE:
                 energy_goals = [self.baseline_energy] * self.sweep_parameters.points
-                min_voltage = self.baseline_energy * (
+                min_voltage = self.baseline_voltage * (
                     1.0 - (self.sweep_parameters.percentage / 100)
                 )
-                max_voltage = self.baseline_energy * (
+                max_voltage = self.baseline_voltage * (
                     1.0 + (self.sweep_parameters.percentage / 100)
                 )
                 voltage_goals = np.linspace(

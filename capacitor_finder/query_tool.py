@@ -1,7 +1,9 @@
 """Tool using Digikey API to find capacitors to build packs from"""
 import re
 import math
+import os
 import digikey
+import numpy as np
 from digikey.v3.productinformation import KeywordSearchRequest
 from pack_builder.capacitor import Capacitor
 
@@ -72,6 +74,22 @@ class QueryTool:
             capacitance, voltage_rating, price, manufacturer_part_number, 12.0
         )
 
+    def generate_value_list(self, min, max) -> list[dict]:
+        out = []
+        for i in range(min, max):
+            out.append(
+                {"ParameterId": 2049, "ValueId": str(i)},
+            )
+        return out
+
+    def generate_voltage_list(self, min, max) -> list[dict]:
+        out = []
+        for i in np.arange(min, max, 0.01):
+            out.append(
+                {"ParameterId": 2079, "ValueId": str(i)},
+            )
+        return out
+
     def search_the_information_superhighway(self) -> list[Capacitor]:
         """Hackerman.wav"""
 
@@ -83,9 +101,13 @@ class QueryTool:
                 "TaxonomyIds": [61],
                 "ParametricFilters": [
                     {"ParameterId": 1989, "ValueId": "0"},
-                    {"ParameterId": 69, "ValueId": "411897"},
-                    {"ParameterId": 69, "ValueId": "409393"},
-                ],
+                    # {"ParameterId": 69, "ValueId": "411897"},
+                    # {"ParameterId": 69, "ValueId": "409393"},
+                    # {"ParameterId": -1, "ValueId": "1572"},
+                    # {"ParameterId": -1, "ValueId": "338"},
+                ]
+                + self.generate_value_list(120, 1000)
+                + self.generate_voltage_list(1, 9),
             },
         )
 
@@ -93,6 +115,7 @@ class QueryTool:
         result = digikey.keyword_search(body=search_request, api_limits=api_limit)
 
         print(api_limit)
+        # print(result)
 
         caps_raw = result.to_dict()["products"]
         caps = []
