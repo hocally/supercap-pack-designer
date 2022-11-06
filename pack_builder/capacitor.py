@@ -4,6 +4,8 @@
 class Capacitor:
     """A capacitor. Stores information about value, voltage rating, size, and cost"""
 
+    # pylint: disable=too-few-public-methods
+    # pylint: disable=too-many-arguments
     def __init__(
         self,
         capacitance: float,
