@@ -60,5 +60,41 @@ class Pack:
         assert (
             self.num_series_capacitors is not None
             and self.num_parallel_stacks is not None
-        ), "Pack must be defined before number of capacitors used is calculated!"
+        ), "Pack must be defined before price is calculated!"
         return self.get_num_capacitors() * self.capacitor.price
+
+    def get_pack_area(self) -> float:
+        assert (
+            self.num_series_capacitors is not None
+            and self.num_parallel_stacks is not None
+        ), "Pack must be defined before area is calculated!"
+        if self.capacitor.area is not None:
+            return self.get_num_capacitors() * self.capacitor.area
+        else:
+            return float("NaN")
+
+    def get_pack_joules_per_dollar(self) -> float:
+        return self.get_pack_max_energy() / self.get_pack_price()
+
+    def get_pack_joules_per_area(self):
+        assert (
+            self.num_series_capacitors is not None
+            and self.num_parallel_stacks is not None
+        ), "Pack must be defined before area things can be calculated!"
+        if self.get_pack_area() is not float("NaN") or None:
+            return self.get_pack_max_energy() / self.get_pack_area()  # type: ignore
+
+    def get_pack_report(self):
+        return (
+            str(f"{self.get_stack_voltage():.3f}")
+            + " V, "
+            + str(f"{self.get_pack_max_energy():.3f}")
+            + " J, $"
+            + str(f"{self.get_pack_price():.3f}")
+            + ", "
+            + str(f"{self.get_pack_joules_per_dollar():.3f}")
+            + " J/$: "
+            + str(f"{self.get_pack_joules_per_area():.3f}")
+            + " J/sq mm, "
+            + str(self.capacitor.part_number)
+        )

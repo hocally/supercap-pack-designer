@@ -1,13 +1,18 @@
 from pack_builder.capacitor import Capacitor
+from pack_builder.pack import Pack
 from pack_optimizer.doe import Sweep
+from capcitor_finder.query_tool import CapacitorFinder
 
 
 def watt_hours_to_joules(watt_hours: float) -> float:
     return watt_hours * 3600
 
 
-test_cap = Capacitor(1.0, 1.0, 1.0)
-sweep_params = Sweep.SweepParameters(10, 10.0)
-print(sweep_params.points)
-test_sweep = Sweep(52.0, 1500, test_cap, Sweep.SweepType.ENERGY, sweep_params)
-test_sweep.enumerate_packs()
+sleuth = CapacitorFinder(50)
+capacitors = sleuth.capacitors_found
+packs = []
+for capacitor in capacitors:
+    packs.append(Pack(50, 5000, capacitor))
+
+for pack in packs:
+    print(pack.get_pack_report())
